@@ -1,0 +1,56 @@
+
+[
+    {
+        "name": "Canada",
+        "topLevelDomain": [
+            ".ca"
+        ],
+        "alpha2Code": "CA",
+        "alpha3Code": "CAN",
+        "callingCodes": [
+            "1"
+        ],
+        "capital": "Ottawa",
+        "altSpellings": [
+            "CA"
+        ],
+        "region": "Americas"
+    },
+    {
+        "name": "Mexico",
+        "topLevelDomain": [
+            ".mx"
+        ],
+        "alpha2Code": "MX",
+        "alpha3Code": "MEX",
+        "callingCodes": [
+            "52"
+        ],
+        "capital": "Mexico City",
+        "altSpellings": [
+            "MX",
+            "Mexicanos",
+            "United Mexican States",
+            "Estados Unidos Mexicanos"
+        ],
+        "region": "Americas"
+    },
+    {
+        "name": "United States of America",
+        "topLevelDomain": [
+            ".us"
+        ],
+        "alpha2Code": "US",
+        "alpha3Code": "USA",
+        "callingCodes": [
+            "1"
+        ],
+        "capital": "Washington, D.C.",
+        "altSpellings": [
+            "US",
+            "USA",
+            "United States of America"
+        ],
+        "region": "Americas"
+    }
+]
