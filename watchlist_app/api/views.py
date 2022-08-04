@@ -3,6 +3,7 @@ from rest_framework import filters
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+from watchlist_app.RTCTokenBuilder import Role_Attendee, RtcTokenBuilder
 from watchlist_app.api.paginition import MoviesPaginition, ReviewCPagination, ReviewsLOPaginition
 from watchlist_app.api.permissions import ReviewUserOrReadOnly, isAdminOrReadOnly
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -15,6 +16,7 @@ from rest_framework.views import APIView
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+import time
 
 
 class ReviewCreate(generics.CreateAPIView):
@@ -110,3 +112,20 @@ class ReviewsVS(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
     pagination_class = ReviewCPagination
+
+
+@api_view(["GET", ])
+def update_agora_token(request):
+    app_id = request.query_params.get("app_id", None)
+    app_primary_certificate = request.query_params.get("APC", None)
+    channel_name = request.query_params.get("channel_name", None)
+    account = request.query_params.get("account", None)
+    expireTimeInSeconds = 300
+    currentTimestamp = int(time.time())
+    privilegeExpiredTs = currentTimestamp + expireTimeInSeconds
+    if app_id and app_primary_certificate and channel_name and account:
+        token = RtcTokenBuilder.buildTokenWithAccount(
+            app_id, app_primary_certificate, channel_name, account, Role_Attendee, privilegeExpiredTs)
+        return Response({"token": token}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "paramters not correct or got null or empty data"}, status=status.HTTP_400_BAD_REQUEST)

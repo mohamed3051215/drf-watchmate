@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 import django_filters
-from watchlist_app.api.views import EmailReviewList, ReviewDetail, ReviewCreate, ReviewList, ReviewsVS,  StreamPlatformVS, UserReviewList, WatchlistAA, WatchlistVS
+from watchlist_app.api.views import EmailReviewList, ReviewDetail, ReviewCreate, ReviewList, ReviewsVS,  StreamPlatformVS, UserReviewList, WatchlistAA, WatchlistVS, update_agora_token
 from rest_framework.routers import DefaultRouter
 from watchlist_app.models import Watchlist
 stream_router = DefaultRouter()
@@ -22,5 +22,5 @@ urlpatterns = [
          EmailReviewList().as_view(), name="email-view-list"),
     path("movie-list/",
          WatchlistAA().as_view(), name="movie-list"),
-
+     path("token/" , update_agora_token , name="update-token")
 ]

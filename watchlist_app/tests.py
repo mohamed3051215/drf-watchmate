@@ -1,3 +1,4 @@
+import time
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
@@ -169,3 +170,19 @@ class ReviewTestCase(APITestCase):
         response = self.client.delete(
             reverse("review-detail", args=(self.movie.id,)))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class TokenTestCase(APITestCase):
+
+    def test_update_token(self):
+        appID = "970CA35de60c44645bbae8a215061b33"
+        appCertificate = "5CFd2fd1755d40ecb72977518be15d3b"
+        channelName = "7d72365eb98348539asdf3f9d460bdda"
+
+        userAccount = "2882341273"
+        expireTimeInSeconds = 3600
+        currentTimestamp = int(time.time())
+
+        response = self.client.get(
+            f"/watch/token/?app_id={appID}&APC={appCertificate}&channel_name={channelName}&account={userAccount}", content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
